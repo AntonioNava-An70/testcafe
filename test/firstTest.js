@@ -112,3 +112,15 @@ test.page('www.google.com')(
 			.ok()
 	}
 )
+
+test.page `https://www.unosquare.com/`
+('Assertions', async t => {
+    await t
+    .maximizeWindow()
+    .expect(Selector('div.col-12>h2.subtitle').innerText).contains('Testimonials'.toUpperCase(), 'Element contains "Testimonials"')
+    .expect(Selector('div.col-12>h2.subtitle').innerText).notContains('Testimonials123'.toUpperCase(), 'Element NOT contains "Testimonials123"')
+    .expect(Selector('div.col-12>h2.subtitle').innerText).eql('Testimonials'.toUpperCase(), 'Element Text is equal to "Testimonials"')
+    .expect(Selector('h2.subtitle').count).eql(2)
+    .expect(Selector('header > div').getAttribute('class')).eql('container-fluid')
+    .expect(Selector('div.col-12>h2.subtitle').exists).ok();
+});
